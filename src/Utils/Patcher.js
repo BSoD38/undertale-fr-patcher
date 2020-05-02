@@ -160,4 +160,4 @@ class Patcher {
     }
 }
 
-module.exports = { Patcher };
+module.exports = Patcher;
