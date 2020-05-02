@@ -1,8 +1,10 @@
+// Created by Alcaro, and edited by the UTFR Team.
+
 class Patcher {
     /**
      * @param rom
      * @param patch
-     * @returns {Uint8Array}
+     * @returns {Buffer}
      */
     static applyBps(rom, patch) {
         let i;
@@ -125,7 +127,7 @@ class Patcher {
             }
         }
 
-        return out;
+        return new Buffer(out);
     }
 
     /**
