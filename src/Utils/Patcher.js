@@ -1,32 +1,14 @@
 // Created by Alcaro, and edited by the UTFR Team.
+const crc32 = require("Checksum");
 
-class Patcher {
+module.exports = class Patcher {
     /**
-     * @param rom
-     * @param patch
+     * @param Buffer data
+     * @param Buffer patch
      * @returns {Buffer}
      */
-    static applyBps(rom, patch) {
+    static applyBps({buf: data}, {buf: patch}) {
         let i;
-
-        function crc32(bytes) {
-            let c;
-            const crcTable = [];
-            for (let n = 0; n < 256; n++) {
-                c = n;
-                for (let k = 0; k < 8; k++) {
-                    c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-                }
-                crcTable[n] = c;
-            }
-
-            let crc = 0 ^ -1;
-            for (let i = 0; i < bytes.length; i++) {
-                crc = (crc >>> 8) ^ crcTable[(crc ^ bytes[i]) & 0xff];
-            }
-            return (crc ^ -1) >>> 0;
-        }
-
         let patchpos = 0;
 
         function u8() {
@@ -68,10 +50,10 @@ class Patcher {
         if (u8() !== 0x42 || u8() !== 0x50 || u8() !== 0x53 || u8() !== 0x31) {
             throw "not a BPS patch";
         }
-        if (decode() !== rom.length) {
+        if (decode() !== data.length) {
             throw "wrong input file";
         }
-        if (crc32(rom) !== u32at(patch.length - 12)) {
+        if (crc32(data) !== u32at(patch.length - 12)) {
             throw "wrong input file";
         }
 
@@ -98,7 +80,7 @@ class Patcher {
                 case SourceRead:
                     {
                         for (i = 0; i < len; i++) {
-                            out[outpos] = rom[outpos];
+                            out[outpos] = data[outpos];
                             outpos++;
                         }
                     }
@@ -113,15 +95,17 @@ class Patcher {
                 case SourceCopy:
                     {
                         inreadpos += decodes();
-                        for (i = 0; i < len; i++)
-                            out[outpos++] = rom[inreadpos++];
+                        for (i = 0; i < len; i++) {
+                            out[outpos++] = data[inreadpos++];
+                        }
                     }
                     break;
                 case TargetCopy:
                     {
                         outreadpos += decodes();
-                        for (i = 0; i < len; i++)
+                        for (i = 0; i < len; i++) {
                             out[outpos++] = out[outreadpos++];
+                        }
                     }
                     break;
             }
@@ -129,35 +113,4 @@ class Patcher {
 
         return new Buffer(out);
     }
-
-    /**
-     * @param originalFile
-     * @param bpsFile
-     */
-    static tryPatch(originalFile, bpsFile) {
-        let romdata;
-        let bpsdata;
-
-        const romReader = new FileReader();
-        romReader.onload = (e) => {
-            romdata = {
-                bytes: e.target.result,
-                name: originalFile.name,
-                mime: bpsFile.type
-            };
-        };
-        romReader.readAsArrayBuffer(originalFile);
-
-        const bpsReader = new FileReader();
-        bpsReader.onload = (e) => {
-            bpsdata = {
-                bytes: e.target.result,
-                name: bpsFile.name,
-                mime: bpsFile.type
-            };
-        };
-        bpsReader.readAsArrayBuffer(bpsFile);
-    }
 }
-
-module.exports = Patcher;
