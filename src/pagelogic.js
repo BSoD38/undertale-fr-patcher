@@ -9,7 +9,7 @@ let patchBuffer;
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("select-orig-file").addEventListener("click", async () => {
-        const selectedOriginalData = await dialog.showOpenDialog({
+        selectedOriginalData = await dialog.showOpenDialog({
             properties: ["openFile"],
             filters: [
                 {name: "Données d'Undertale", extensions: ["win", "unx", "ios"]}
@@ -17,20 +17,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (selectedOriginalData.filePaths[0]) {
+            // TODO: Add a loading indicator while the app is loading the file
             dataBuffer = await fs.readFile(selectedOriginalData.filePaths[0]);
         }
     });
 
     document.getElementById("select-patch").addEventListener("click", async () => {
-        selectedOriginalData = await dialog.showOpenDialog({
+        const selectedPatch = await dialog.showOpenDialog({
             properties: ["openFile"],
             filters: [
                 {name: "Fichier de patch", extensions: ["bps"]}
             ]
         });
 
-        if (selectedOriginalData.filePaths[0]) {
-            patchBuffer = await fs.readFile(selectedOriginalData.filePaths[0]);
+        if (selectedPatch.filePaths[0]) {
+            // TODO: Loading indicator
+            patchBuffer = await fs.readFile(selectedPatch.filePaths[0]);
         }
     });
 
@@ -39,12 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const backupFilename = `${selectedOriginalData.filePaths[0]}.bak`;
             try {
                 await fs.access(backupFilename, fsConstants.F_OK);
+                // TODO: Ask if the user wants to reinstall the patch
             } catch (e) {
                 await fs.copyFile(selectedOriginalData.filePaths[0], `${selectedOriginalData.filePaths[0]}.bak`);
             }
+
             try {
                 const resultBuffer = await Patcher.applyBps(dataBuffer, patchBuffer);
                 await fs.writeFile(selectedOriginalData.filePaths[0], resultBuffer);
+                // TODO: Better finish indicator
+                alert("Terminé");
             } catch (e) {
                 console.error(e);
             }
