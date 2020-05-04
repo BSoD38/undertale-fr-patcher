@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 await fs.copyFile(selectedOriginalData.filePaths[0], `${selectedOriginalData.filePaths[0]}.bak`);
             }
             try {
-                const resultBuffer = Patcher.applyBps(dataBuffer, patchBuffer);
+                const resultBuffer = await Patcher.applyBps(dataBuffer, patchBuffer);
                 await fs.writeFile(selectedOriginalData.filePaths[0], resultBuffer);
             } catch (e) {
                 console.error(e);
