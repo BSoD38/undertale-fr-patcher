@@ -17,10 +17,10 @@
     },
     "mac": {
       "target": "mas",
-      "extraResources": "Patches/mac"
+      "extraResources": "Patches/ios"
     },
     "linux": {
-      "extraResources": "Patches/linux"
+      "extraResources": "Patches/unx"
     }
   },
   "keywords": [],
