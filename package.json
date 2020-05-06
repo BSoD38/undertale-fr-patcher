@@ -7,12 +7,20 @@
   "scripts": {
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "build": "electron-builder"
   },
   "build":  {
     "appId": "undertale.fr.patcher",
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "extraResources": "Patches/win"
+    },
+    "mac": {
+      "target": "mas",
+      "extraResources": "Patches/mac"
+    },
+    "linux": {
+      "extraResources": "Patches/linux"
     }
   },
   "keywords": [],

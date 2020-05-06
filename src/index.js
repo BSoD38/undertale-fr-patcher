@@ -6,10 +6,12 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    show: false,
     webPreferences: {
       nodeIntegration: true
     }
   });
+
   mainWindow.setMenu(null);
 
   // and load the index.html of the app.
@@ -17,6 +19,11 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  // Gracefully show the window when everything has loaded
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+  });
 };
 
 // This method will be called when Electron has finished
