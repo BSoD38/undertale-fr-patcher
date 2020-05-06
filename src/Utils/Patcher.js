@@ -23,9 +23,9 @@ module.exports = class Patcher {
     }
 
     /**
-     * @returns {Buffer}
      * @param data
      * @param patch
+     * @returns {Promise<{Buffer}>}
      */
     static applyBps(data, patch) {
         return new Promise((resolve, reject) => {
