@@ -15,7 +15,7 @@ function getAppropriatePatch(checksumResult) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("select-orig-file").addEventListener("click", async () => {
+    document.getElementById("selectOrigFile").addEventListener("click", async () => {
         const selectedFolder = await dialog.showOpenDialog({
             title: "Sélectionnez le dossier d'installation d'Undertale",
             properties: ["openDirectory"]
