@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="default-src 'self'">
     <title>Installeur patch français Undertale</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body>
     <h1>UTFR Patcher</h1>
     <button id="select-orig-file">Dossier d'installation</button>
+    <div id="location"></div>
     <div id="status"></div>
-    <button id="patch">Patcher !</button>
+    <button id="patch" class="hidden">Installer</button>
+    <button id="uninstall" class="hidden">Désinstaller</button>
   </body>
   <script src="pagelogic.js"></script>
 </html>
