@@ -19,14 +19,14 @@ const statusText = document.getElementById("status");
 const locationText = document.getElementById("location");
 
 function installedMode() {
-    patchButton.className = "";
-    uninstallButton.className = "";
+    patchButton.classList.remove("hidden");
+    uninstallButton.classList.remove("hidden");
     patchButton.textContent = "Réinstaller";
 }
 
 function uninstalledMode() {
-    patchButton.className = "";
-    uninstallButton.className = "hidden";
+    patchButton.classList.remove("hidden");
+    uninstallButton.classList.add("hidden");
     patchButton.textContent = "Installer";
 }
 
@@ -81,13 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
             title: "Sélectionnez le dossier d'installation d'Undertale",
             properties: ["openDirectory"]
         });
-        document.getElementById("patch").className = "hidden";
+        patchButton.classList.add("hidden");
         if (!selectedFolder.filePaths[0]) {
             return;
         }
 
         // TODO: Add a loading indicator while the app is loading the file
-        document.getElementById("status").textContent = "Chargement en cours...";
+        statusText.textContent = "Chargement en cours...";
         dataPath = undefined;
         let tempPath;
         try {
@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {}
         if (!dataPath) {
             statusText.textContent = "Le dossier d'installation semble incorrect.";
+            uninstallButton.classList.add("hidden");
+            return;
         }
         try {
             await checkDataPatch(dataPath);
@@ -118,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("patch").addEventListener("click", async () => {
         if (dataBuffer instanceof Buffer && patchBuffer instanceof Buffer) {
-            document.getElementById("status").textContent = "Patch en cours...";
+            statusText.textContent = "Patch en cours...";
 
             const backupPath = `${dataPath}.bak`;
             if (backupPresent) {
