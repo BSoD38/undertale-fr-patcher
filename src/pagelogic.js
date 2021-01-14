@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // TODO: Add a loading indicator while the app is loading the file
         document.getElementById("status").textContent = "Chargement en cours...";
+        dataPath = undefined;
         let tempPath;
         try {
             tempPath = path.join(selectedFolder.filePaths[0], "data.win");

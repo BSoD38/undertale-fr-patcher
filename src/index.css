@@ -5,6 +5,7 @@
 
 body {
     font-family: "8bitfont", sans-serif;
+    color: white;
     margin: auto;
     max-width: 38rem;
     padding: 1em;
@@ -25,7 +26,7 @@ body {
     text-align: center;
 }
 
-#status {
+#status #location {
     color: white;
     padding: 1em;
 }
