@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     uninstallButton.addEventListener("click", async () => {
         statusText.textContent = "Désinstallation en cours...";
+        uninstallButton.classList.add("hidden");
         const backupPath = `${dataPath}.bak`;
         try {
             await fs.access(backupPath, fsConstants.F_OK);
