@@ -128,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (dataBuffer instanceof Buffer && patchBuffer instanceof Buffer) {
             statusText.textContent = "Patch en cours...";
             uninstallButton.classList.add("hidden");
+            patchButton.classList.add("hidden");
 
             const backupPath = `${dataPath}.bak`;
             const musBkpPath = `${ohyesPath}.bak`;
@@ -143,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const resultBuffer = await Patcher.applyBps(dataBuffer, patchBuffer);
                 await fs.writeFile(dataPath, resultBuffer);
                 await fs.copyFile(path.join(process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR : __dirname, "..", "Patches",  "mus_ohyes.ogg"), ohyesPath);
+                patchButton.classList.remove("hidden");
                 statusText.textContent = "Installation terminée !";
                 installedMode();
             } catch (e) {
