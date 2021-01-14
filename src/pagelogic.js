@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     patchButton.addEventListener("click", async () => {
         if (dataBuffer instanceof Buffer && patchBuffer instanceof Buffer) {
             statusText.textContent = "Patch en cours...";
+            uninstallButton.classList.add("hidden");
 
             const backupPath = `${dataPath}.bak`;
             if (backupPresent) {
