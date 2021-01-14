@@ -20,6 +20,7 @@ body {
     border-color: white;
     border-style: solid;
     margin-block-start: 40px;
+    height: calc(100vh - 120px);
 }
 
 #btnContainer {

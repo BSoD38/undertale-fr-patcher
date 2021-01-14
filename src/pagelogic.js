@@ -21,13 +21,13 @@ const locationText = document.getElementById("location");
 function installedMode() {
     patchButton.classList.remove("hidden");
     uninstallButton.classList.remove("hidden");
-    patchButton.textContent = "Réinstaller";
+    patchButton.children[0].innerHTML = "<img id=\"imgPatch\" src=\"./Image/8bit-heart.png\"/>Réinstaller";
 }
 
 function uninstalledMode() {
     patchButton.classList.remove("hidden");
     uninstallButton.classList.add("hidden");
-    patchButton.textContent = "Installer";
+    patchButton.children[0].innerHTML = "<img id=\"imgPatch\" src=\"./Image/8bit-heart.png\"/>Installer";
 }
 
 async function checkDataPatch(dataFile) {
