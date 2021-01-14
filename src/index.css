@@ -15,12 +15,18 @@ body {
     background-color: black;
 }
 
+#underTitle {
+    margin-top: calc(25vh - 40px);
+}
+
 #indexBody {
     border-width: 5px;
     border-color: white;
     border-style: solid;
     margin-block-start: 40px;
     height: calc(100vh - 120px);
+    min-height: 210px;
+    min-width: 616px;
 }
 
 #btnContainer {
@@ -51,6 +57,12 @@ body {
     content: url("./Image/8bit-tools.png")
 }
 
+#imgUninstall {
+    width: 20px;
+    height: 20px;
+    content: url("./Image/8bit-trash.png")
+}
+
 #selectOrigFile:hover > div > img {
     content: url("./Image/8bit-heart.png");
 }
@@ -59,8 +71,27 @@ body {
     content: url("./Image/8bit-heart.png");
 }
 
+#uninstall:hover > img {
+    content: url("./Image/8bit-open-trash.png");
+    height: 23px;
+    margin-bottom: -3px;
+}
+
 #selectOrigFile {
     padding: 0.5em 0em 0.5em 1.5em;
+}
+
+#location {
+    margin-top: 5px;
+}
+
+#status {
+    margin-top: 8px;
+}
+
+#statusContainer {
+    display: flex;
+    margin-top: 5px;
 }
 
 .title {
@@ -81,7 +112,24 @@ body {
     width: 230px;
 }
 
+.btn-trash {
+    font-family: "8bitfont", sans-serif;
+    background: black;
+    color: darkorange;
+    border-color: darkorange;
+    padding: 0.5em;
+    font-size: 14px;
+    letter-spacing: -1px;
+    margin: 0 1em;
+    width: min-content;
+}
+
 .btn:hover {
+    color: yellow;
+    border-color: yellow;
+}
+
+.btn-trash:hover {
     color: yellow;
     border-color: yellow;
 }
