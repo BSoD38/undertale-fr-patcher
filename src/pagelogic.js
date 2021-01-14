@@ -81,10 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
             title: "Sélectionnez le dossier d'installation d'Undertale",
             properties: ["openDirectory"]
         });
-        patchButton.classList.add("hidden");
         if (!selectedFolder.filePaths[0]) {
             return;
         }
+        patchButton.classList.add("hidden");
 
         // TODO: Add a loading indicator while the app is loading the file
         statusText.textContent = "Chargement en cours...";
@@ -153,6 +153,28 @@ document.addEventListener("DOMContentLoaded", () => {
             uninstalledMode();
         } catch (e) {
             console.error(e);
+        }
+    });
+
+    document.querySelectorAll("button").forEach(el => {
+        el.addEventListener("mouseenter", () => {
+            new Audio("Sounds/snd_movemenu.wav").play();
+        });
+        switch (el.id) {
+            case "uninstall":
+                el.addEventListener("click", () => {
+                    new Audio("Sounds/snd_hurt1.wav").play();
+                });
+                break;
+            case "patch":
+                el.addEventListener("click", () => {
+                    new Audio("Sounds/snd_heal_c.wav").play();
+                });
+                break;
+            default:
+                el.addEventListener("click", () => {
+                    new Audio("Sounds/snd_select.wav").play();
+                });
         }
     });
 });
