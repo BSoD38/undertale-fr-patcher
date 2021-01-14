@@ -7,23 +7,29 @@
 </head>
 <body id="indexBody">
 <h1 class="title">UTFR Patcher</h1>
-<div id="btnContainer">
-    <button id="selectOrigFile" class="btn">
-        <div class="btnContent">
-            <img id="imgFolderInstall"/>
-            Dossier d'installation
-        </div>
-    </button>
-    <button id="patch" class="btn">
-        <div class="btnContent">
-            <img id="imgPatch" src="./Image/8bit-heart.png"/>
-            Installer
-        </div>
-    </button>
-    <button id="uninstall" class="btn">Désinstaller</button>
+<div id="underTitle">
+    <div id="btnContainer">
+        <button id="selectOrigFile" class="btn">
+            <div class="btnContent">
+                <img id="imgFolderInstall" />
+                Dossier d'installation
+            </div>
+        </button>
+        <button id="patch" class="btn">
+            <div class="btnContent">
+                <img id="imgPatch" src="./Image/8bit-heart.png" />
+                Installer
+            </div>
+        </button>
+    </div>
+    <div id="location"></div>
+    <div id="statusContainer">
+        <span id="status"></span>
+        <button id="uninstall" class="btn-trash">
+            <img id="imgUninstall"/>
+        </button>
+    </div>
 </div>
-<div id="location"></div>
-<div id="status"></div>
 </body>
 <script src="pagelogic.js"></script>
 </html>
