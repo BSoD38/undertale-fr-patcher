@@ -22,6 +22,13 @@ module.exports = {
             version: "1.08"
         }
     },
+    fullNames: {
+        win: "Windows",
+        ios: "Mac OS",
+        unx: "Linux",
+        steam: "Steam",
+        gog: "GOG"
+    },
     // Get data file extension by OS
     fileExtensions: {
         win32: "win",

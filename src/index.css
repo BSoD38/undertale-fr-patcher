@@ -87,3 +87,7 @@ body {
 .btnContent {
     display: flex;
 }
+
+.hidden {
+  display: none;
+}

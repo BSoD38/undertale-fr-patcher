@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html id="pageIndex" lang="fr">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" http-equiv="Content-Security-Policy" content="default-src 'self'">
     <title>Installeur patch français Undertale</title>
     <link rel="stylesheet" href="index.css">
   </head>
@@ -14,12 +14,14 @@
                 Dossier d'installation
             </div>
         </button>
-        <button id="patch" class="btn">
+        <div id="location"></div>
+        <button id="patch" class="btn hidden">
             <div class="btnContent">
                 <img id="imgPatch" src="./Image/8bit-heart.png" />
                 Patcher !
             </div>
         </button>
+        <button id="uninstall" class="hidden">Désinstaller</button>
       </div>
       <div id="status"></div>
   </body>
