@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    document.getElementById("patch").addEventListener("click", async () => {
+    patchButton.addEventListener("click", async () => {
         if (dataBuffer instanceof Buffer && patchBuffer instanceof Buffer) {
             statusText.textContent = "Patch en cours...";
 
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.getElementById("uninstall").addEventListener("click", async () => {
+    uninstallButton.addEventListener("click", async () => {
         statusText.textContent = "Désinstallation en cours...";
         const backupPath = `${dataPath}.bak`;
         try {
