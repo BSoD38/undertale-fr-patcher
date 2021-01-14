@@ -11,6 +11,7 @@ const store = new Store();
 let dataBuffer;
 let patchBuffer;
 let dataPath;
+let ohyesPath;
 let backupPresent = false;
 
 const patchButton = document.getElementById("patch");
@@ -59,8 +60,10 @@ async function checkDataPatch(dataFile) {
         }
         statusText.textContent = `Version détectée : ${Constants.fullNames[checksumResult.os]} - ${Constants.fullNames[checksumResult.platform]} - version ${checksumResult.version}`;
         store.set("dataPath", dataFile);
+        store.set("ohyesPath", ohyesPath);
     } else {
-        statusText.textContent = "Le fichier de données est corrompu, ou vient d'une version non supportée.";
+        statusText.textContent = "Le fichier de données est corrompu, vient d'une version non supportée, ou la sauvegarde des données originales a été perdue.";
+        uninstallButton.classList.add("hidden");
     }
 }
 
@@ -72,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (store.get('dataPath')) {
         dataPath = store.get('dataPath');
+        ohyesPath = store.get('ohyesPath');
         checkDataPatch(dataPath);
     }
 
@@ -89,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // TODO: Add a loading indicator while the app is loading the file
         statusText.textContent = "Chargement en cours...";
         dataPath = undefined;
+        ohyesPath = undefined;
         let tempPath;
         try {
             tempPath = path.join(selectedFolder.filePaths[0], "data.win");
@@ -110,6 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             uninstallButton.classList.add("hidden");
             return;
         }
+        ohyesPath = path.join(selectedFolder.filePaths[0], "mus_ohyes.ogg");
         try {
             await checkDataPatch(dataPath);
         } catch (e) {
@@ -124,15 +130,19 @@ document.addEventListener("DOMContentLoaded", () => {
             uninstallButton.classList.add("hidden");
 
             const backupPath = `${dataPath}.bak`;
+            const musBkpPath = `${ohyesPath}.bak`;
             if (backupPresent) {
                 await fs.copyFile(backupPath, dataPath);
+                await fs.copyFile(musBkpPath, ohyesPath);
             } else {
                 await fs.copyFile(dataPath, backupPath);
+                await fs.copyFile(ohyesPath, musBkpPath);
             }
 
             try {
                 const resultBuffer = await Patcher.applyBps(dataBuffer, patchBuffer);
                 await fs.writeFile(dataPath, resultBuffer);
+                await fs.copyFile(path.join(process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR : __dirname, "..", "Patches",  "mus_ohyes.ogg"), ohyesPath);
                 statusText.textContent = "Installation terminée !";
                 installedMode();
             } catch (e) {
@@ -146,10 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
         statusText.textContent = "Désinstallation en cours...";
         uninstallButton.classList.add("hidden");
         const backupPath = `${dataPath}.bak`;
+        const musBkpPath = `${ohyesPath}.bak`;
         try {
             await fs.access(backupPath, fsConstants.F_OK);
             await fs.copyFile(backupPath, dataPath);
             await fs.unlink(backupPath);
+            await fs.copyFile(musBkpPath, ohyesPath);
+            await fs.unlink(musBkpPath);
             backupPresent = false;
             statusText.textContent = "Désinstallation terminée !";
             uninstalledMode();

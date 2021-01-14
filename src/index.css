@@ -3,6 +3,10 @@
     src: url("./Font/8bitoperator.ttf") format("truetype");
 }
 
+button {
+    outline: none;
+}
+
 body {
     font-family: "8bitfont", sans-serif;
     color: white;
