@@ -1,7 +1,7 @@
 {
   "name": "undertale-fr-patcher",
   "productName": "undertale-fr-patcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "French Undertale patch installer",
   "main": "src/index.js",
   "scripts": {
