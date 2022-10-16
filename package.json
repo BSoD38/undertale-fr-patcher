@@ -13,14 +13,14 @@
     "appId": "undertale.fr.patcher",
     "win": {
       "target": "portable",
-      "extraResources": "Patches/win"
+      "extraResources": ["Patches/mus_ohyes.ogg", "Patches/win"]
     },
     "mac": {
       "target": "mas",
-      "extraResources": "Patches/ios"
+      "extraResources": ["Patches/mus_ohyes.ogg", "Patches/ios"]
     },
     "linux": {
-      "extraResources": "Patches/unx"
+      "extraResources": ["Patches/mus_ohyes.ogg", "Patches/unx"]
     }
   },
   "keywords": [],
