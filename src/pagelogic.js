@@ -71,7 +71,14 @@ function getAppropriatePatch(checksumResult) {
     if (process.env.PORTABLE_EXECUTABLE_DIR) {
         return path.join(__dirname, "..", "..", "Patches", `${checksumResult.os}`, `${checksumResult.platform}.bps`);
     }
-    return path.join(process.env.PORTABLE_EXECUTABLE_DIR);
+    return path.join( __dirname, "..", "Patches", `${checksumResult.os}`, `${checksumResult.platform}.bps`);
+}
+
+function getOhYesFile() {
+    if (process.env.PORTABLE_EXECUTABLE_DIR) {
+        return path.join(__dirname, "..", "..", "Patches", "mus_ohyes.ogg");
+    }
+    return path.join( __dirname, "..", "Patches", "mus_ohyes.ogg");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -146,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 const resultBuffer = await Patcher.applyBps(dataBuffer, patchBuffer);
                 await fs.writeFile(dataPath, resultBuffer);
-                await fs.copyFile(path.join(process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR : __dirname, "..", "Patches",  "mus_ohyes.ogg"), ohyesPath);
+                await fs.copyFile(getOhYesFile(), ohyesPath);
                 patchButton.classList.remove("hidden");
                 statusText.textContent = "Installation terminée !";
                 installedMode();
