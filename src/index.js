@@ -21,7 +21,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Gracefully show the window when everything has loaded
   mainWindow.once("ready-to-show", () => {
