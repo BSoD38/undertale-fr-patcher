@@ -68,7 +68,10 @@ async function checkDataPatch(dataFile) {
 }
 
 function getAppropriatePatch(checksumResult) {
-    return path.join(process.env.PORTABLE_EXECUTABLE_DIR ? process.env.PORTABLE_EXECUTABLE_DIR : __dirname, "..", "Patches", `${checksumResult.os}`, `${checksumResult.platform}.bps`);
+    if (process.env.PORTABLE_EXECUTABLE_DIR) {
+        return path.join(__dirname, "..", "..", "Patches", `${checksumResult.os}`, `${checksumResult.platform}.bps`);
+    }
+    return path.join(process.env.PORTABLE_EXECUTABLE_DIR);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
